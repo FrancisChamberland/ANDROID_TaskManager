@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KickMyB">
         <activity
-            android:name=".MainActivity"
+            android:name=".ConnexionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
