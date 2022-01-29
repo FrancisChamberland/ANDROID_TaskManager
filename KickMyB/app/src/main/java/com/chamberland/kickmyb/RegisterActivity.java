@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.chamberland.kickmyb.databinding.ActivityConnexionBinding;
 import com.chamberland.kickmyb.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
