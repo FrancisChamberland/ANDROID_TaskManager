@@ -2,6 +2,7 @@ package com.chamberland.kickmyb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,5 +20,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(view);
 
         this.setTitle("Inscription");
+
+        //Events listeners
+        binding.btnConnect.setOnClickListener(v -> {
+            Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
+            startActivity(i);
+        });
     }
 }
