@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity{
     private ActivityHomeBinding binding;
 
     @Override
@@ -18,5 +18,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(view);
 
         this.setTitle("Home");
+        createEventsListeners();
+    }
+
+    @Override
+    void createEventsListeners() {
+
     }
 }

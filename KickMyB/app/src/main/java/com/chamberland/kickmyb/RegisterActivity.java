@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.chamberland.kickmyb.databinding.ActivityRegisterBinding;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
     private ActivityRegisterBinding binding;
 
     @Override
@@ -19,8 +19,11 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(view);
 
         this.setTitle("Inscription");
+        createEventsListeners();
+    }
 
-        //Events listeners
+    @Override
+    void createEventsListeners(){
         binding.btnConnect.setOnClickListener(v -> {
             Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
             startActivity(i);

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KickMyB">
         <activity
+            android:name=".BaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

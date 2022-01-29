@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.chamberland.kickmyb.databinding.ActivityConnexionBinding;
 
-public class ConnexionActivity extends AppCompatActivity {
+public class ConnexionActivity extends BaseActivity {
     private ActivityConnexionBinding binding;
 
     @Override
@@ -19,8 +19,11 @@ public class ConnexionActivity extends AppCompatActivity {
         setContentView(view);
 
         this.setTitle("Connexion");
+        createEventsListeners();
+    }
 
-        //Events listeners
+    @Override
+    void createEventsListeners(){
         binding.btnRegister.setOnClickListener(v -> {
             Intent i = new Intent(ConnexionActivity.this, RegisterActivity.class);
             startActivity(i);
