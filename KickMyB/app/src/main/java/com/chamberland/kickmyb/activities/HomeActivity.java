@@ -1,18 +1,25 @@
 package com.chamberland.kickmyb.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.adapters.TaskAdapter;
 import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
+import com.chamberland.kickmyb.models.Task;
 
+import java.time.LocalDateTime;
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class HomeActivity extends BaseActivity {
     private ActivityHomeBinding binding;
     private TaskAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,10 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void fillRecycler() {
-
+        for (int i = 0; i < 200; i++){
+            LocalDateTime endDateTime = LocalDateTime.of(2022, 2, 10, 10, 10);
+            Task task = new Task("Faire cela", endDateTime);
+            adapter.add(task);
+        }
     }
 }
