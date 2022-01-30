@@ -1,13 +1,12 @@
-package com.chamberland.kickmyb;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.chamberland.kickmyb.activities;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.chamberland.kickmyb.activities.BaseActivity;
 import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
 
-public class HomeActivity extends BaseActivity{
+public class HomeActivity extends BaseActivity {
     private ActivityHomeBinding binding;
 
     @Override

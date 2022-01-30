@@ -1,4 +1,4 @@
-package com.chamberland.kickmyb;
+package com.chamberland.kickmyb.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 

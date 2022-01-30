@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KickMyB">
         <activity
-            android:name=".BaseActivity"
+            android:name=".activities.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ConnexionActivity"
+            android:name=".activities.ConnexionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
