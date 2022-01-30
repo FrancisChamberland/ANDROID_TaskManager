@@ -4,6 +4,9 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.chamberland.kickmyb.R;
 
 import androidx.annotation.RequiresApi;
@@ -36,11 +39,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView name;
+        private final TextView elapsedTime;
+        private final TextView dueDate;
+        private final ProgressBar progress;
+        private final TextView progressPercentage;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-
+            name = (TextView) view.findViewById(R.id.taskName);
+            elapsedTime = (TextView) view.findViewById(R.id.taskElapsedTime);
+            dueDate = (TextView) view.findViewById(R.id.taskDueDate);
+            progress = (ProgressBar) view.findViewById(R.id.taskProgressBar);
+            progressPercentage = (TextView) view.findViewById(R.id.taskProgressPercentage);
         }
     }
 
@@ -61,6 +73,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
+        Task task = localDataSet.get(position);
 
+        viewHolder.name.setText(task.getName());
+        viewHolder.elapsedTime.setText(task.getFormattedTimeElapsed());
+        viewHolder.dueDate.setText(task.getEndDateTime());
+        viewHolder.progress.setProgress(task.getProgressPercentage());
+        viewHolder.progressPercentage.setText(String.format("%s%%", task.getProgressPercentage()));
     }
 }

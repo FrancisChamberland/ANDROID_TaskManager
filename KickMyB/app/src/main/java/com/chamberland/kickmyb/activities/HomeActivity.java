@@ -28,7 +28,7 @@ public class HomeActivity extends BaseActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        this.setTitle("Home");
+        this.setTitle("Accueil");
         createEventsListeners();
         initRecycler();
         fillRecycler();
@@ -52,8 +52,8 @@ public class HomeActivity extends BaseActivity {
 
     private void fillRecycler() {
         for (int i = 0; i < 200; i++){
-            LocalDateTime endDateTime = LocalDateTime.of(2022, 2, 10, 10, 10);
-            Task task = new Task("Faire cela", endDateTime);
+            LocalDateTime dueDateTime = LocalDateTime.of(2022, 2, 10, 10, 10);
+            Task task = new Task("Faire cela", dueDateTime);
             adapter.add(task);
         }
     }
