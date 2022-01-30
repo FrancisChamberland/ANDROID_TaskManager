@@ -26,5 +26,9 @@ public class RegisterActivity extends BaseActivity {
             Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
             startActivity(i);
         });
+        binding.btnRegister.setOnClickListener(v -> {
+            Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
+            startActivity(i);
+        });
     }
 }

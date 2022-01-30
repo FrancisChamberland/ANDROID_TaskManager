@@ -26,5 +26,9 @@ public class ConnexionActivity extends BaseActivity {
             Intent i = new Intent(ConnexionActivity.this, RegisterActivity.class);
             startActivity(i);
         });
+        binding.btnConnect.setOnClickListener(v -> {
+            Intent i = new Intent(ConnexionActivity.this, HomeActivity.class);
+            startActivity(i);
+        });
     }
 }
