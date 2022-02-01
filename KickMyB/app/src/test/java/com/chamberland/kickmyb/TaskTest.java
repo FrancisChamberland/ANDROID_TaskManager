@@ -17,4 +17,5 @@ public class TaskTest {
         int result = task.getProgressPercentage();
         assertEquals(expectedResult, result);
     }
+
 }

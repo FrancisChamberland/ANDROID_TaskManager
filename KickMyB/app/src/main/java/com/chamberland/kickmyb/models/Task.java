@@ -5,21 +5,24 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.sql.Time;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class Task {
     private String name;
-    private LocalDateTime startDateTime;
-    private LocalDateTime dueDateTime;
+    private ZonedDateTime startDateTime;
+    private ZonedDateTime dueDateTime;
 
-    public Task(String name, LocalDateTime endDateTime){
+    public Task(String name, LocalDateTime dueDateTime){
         this.name = name;
-        this.dueDateTime = endDateTime;
-        startDateTime = LocalDateTime.now();
+        this.dueDateTime = getDateTimeFromLocal(dueDateTime);
+        startDateTime = getDateTimeNow();
     }
 
     public String getName(){
@@ -32,10 +35,11 @@ public class Task {
     }
 
     public int getProgressPercentage(){
-        long secondsLeft = ChronoUnit.SECONDS.between(LocalDateTime.now(), dueDateTime);
+        ZonedDateTime currentDateTime = getDateTimeNow();
+        long secondsLeft = ChronoUnit.SECONDS.between(currentDateTime, dueDateTime);
         long totalSeconds = ChronoUnit.SECONDS.between(startDateTime, dueDateTime);
         long secondsElapsed = totalSeconds - secondsLeft;
-        return (int) (secondsElapsed / totalSeconds * 100);
+        return (int) ((double)secondsElapsed / totalSeconds * 100);
     }
 
     public String getFormattedTimeElapsed(){
@@ -45,12 +49,22 @@ public class Task {
         if (daysElapsed > 0){
             return getTimeFormatted(daysElapsed, "journée");
         } else if (hoursElapsed > 0){
-            return getTimeFormatted(daysElapsed, "heure");
+            return getTimeFormatted(hoursElapsed, "heure");
         } else if (minutesElapsed > 0) {
-            return getTimeFormatted(daysElapsed, "minute");
+            return getTimeFormatted(minutesElapsed, "minute");
         } else {
             return "moins d'une minute";
         }
+    }
+
+    public ZonedDateTime getDateTimeFromLocal(LocalDateTime dateTime){
+        ZoneId zone = ZoneId.of( "America/Montreal" );
+        return ZonedDateTime.of(dateTime, zone);
+    }
+
+    public ZonedDateTime getDateTimeNow() {
+        ZoneId zone = ZoneId.of( "America/Montreal" );
+        return ZonedDateTime.now(zone);
     }
 
     private String getTimeFormatted(long time, String timeLevel){
@@ -60,17 +74,17 @@ public class Task {
     }
 
     private long getDaysElapsed(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        ZonedDateTime currentDateTime = getDateTimeNow();
         return ChronoUnit.DAYS.between(startDateTime, currentDateTime);
     }
 
     private long getHoursElapsed(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        ZonedDateTime currentDateTime = getDateTimeNow();
         return ChronoUnit.HOURS.between(startDateTime, currentDateTime);
     }
 
     private long getMinutesElapsed(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        ZonedDateTime currentDateTime = getDateTimeNow();
         return ChronoUnit.MINUTES.between(startDateTime, currentDateTime);
     }
 }

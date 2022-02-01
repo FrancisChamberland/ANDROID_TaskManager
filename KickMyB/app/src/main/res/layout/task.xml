@@ -75,18 +75,18 @@
         android:layout_weight="1"/>
 
     <RelativeLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginRight="5dp"
         android:layout_gravity="center">
 
         <ProgressBar
             android:id="@+id/taskProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:indeterminate="false"
-            android:indeterminateTint="@color/white"
             android:max="100"
-            android:progress="20"
             android:progressDrawable="@drawable/circular_progress_bar" />
 
         <TextView

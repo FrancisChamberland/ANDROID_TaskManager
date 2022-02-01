@@ -52,7 +52,7 @@ public class HomeActivity extends BaseActivity {
 
     private void fillRecycler() {
         for (int i = 0; i < 200; i++){
-            LocalDateTime dueDateTime = LocalDateTime.of(2022, 2, 10, 10, 10);
+            LocalDateTime dueDateTime = LocalDateTime.of(2022, 2, 25, 11, 50);
             Task task = new Task("Faire cela", dueDateTime);
             adapter.add(task);
         }
