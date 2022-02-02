@@ -2,6 +2,7 @@ package com.chamberland.kickmyb.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,11 +20,15 @@ public class CreateActivity extends BaseActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        this.setTitle("Ajouter une tâche");
+        this.setTitle("Ajouter");
+        createEventsListeners();
     }
 
     @Override
     void createEventsListeners() {
-
+        binding.btnCreateTask.setOnClickListener(v -> {
+            Intent i = new Intent(CreateActivity.this, HomeActivity.class);
+            startActivity(i);
+        });
     }
 }

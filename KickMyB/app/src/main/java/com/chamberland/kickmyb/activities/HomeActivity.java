@@ -1,5 +1,6 @@
 package com.chamberland.kickmyb.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +37,10 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     void createEventsListeners() {
-
+        binding.btnAddTask.setOnClickListener(v -> {
+            Intent i = new Intent(HomeActivity.this, CreateActivity.class);
+            startActivity(i);
+        });
     }
 
     private void initRecycler(){
