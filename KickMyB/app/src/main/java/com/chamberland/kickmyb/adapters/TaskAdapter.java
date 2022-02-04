@@ -1,5 +1,6 @@
 package com.chamberland.kickmyb.adapters;
 
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import com.chamberland.kickmyb.R;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chamberland.kickmyb.activities.ConsultActivity;
+import com.chamberland.kickmyb.activities.CreateActivity;
+import com.chamberland.kickmyb.activities.HomeActivity;
 import com.chamberland.kickmyb.models.Task;
 
 import java.util.ArrayList;
@@ -80,5 +84,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         viewHolder.dueDate.setText(task.getEndDateTime());
         viewHolder.progress.setProgress(task.getProgressPercentage());
         viewHolder.progressPercentage.setText(String.format("%s%%", task.getProgressPercentage()));
+
+        viewHolder.itemView.setOnClickListener(view -> {
+            Intent i = new Intent(view.getContext(), ConsultActivity.class);
+            view.getContext().startActivity(i);
+        });
     }
 }
