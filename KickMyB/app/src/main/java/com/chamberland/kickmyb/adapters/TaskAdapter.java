@@ -82,8 +82,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         viewHolder.name.setText(task.getName());
         viewHolder.elapsedTime.setText(task.getFormattedTimeElapsed());
         viewHolder.dueDate.setText(task.getEndDateTime());
-        viewHolder.progress.setProgress(task.getProgressPercentage());
-        viewHolder.progressPercentage.setText(String.format("%s%%", task.getProgressPercentage()));
+
+        int progressPercentage = 75;
+
+        viewHolder.progress.setProgress(progressPercentage);
+        viewHolder.progressPercentage.setText(String.format("%s%%", progressPercentage));
 
         viewHolder.itemView.setOnClickListener(view -> {
             Intent i = new Intent(view.getContext(), ConsultActivity.class);
