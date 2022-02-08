@@ -20,14 +20,9 @@ public class ConsultActivity extends BaseActivity {
 
         currentActivity = "Consult";
         this.setTitle("Tâche");
-        createEventsListeners();
 
         binding.traskProgressInput.setMin(0);
         binding.traskProgressInput.setMax(100);
         binding.traskProgressInput.setValue(75);
-    }
-
-    private void createEventsListeners() {
-
     }
 }

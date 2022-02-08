@@ -1,27 +1,42 @@
 package com.chamberland.kickmyb.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.databinding.ActivityBaseBinding;
-import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationView;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    String currentActivity; // Évite la double ouverture d'une activité
+    String currentActivity;
     ActivityBaseBinding bindingBase;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    DrawerLayout drawerLayout;
+
+
     @Override
     public void setContentView(View view) {
         bindingBase = ActivityBaseBinding.inflate(getLayoutInflater());
         bindingBase.baseFrameLayout.addView (view);
-        super.setContentView(bindingBase.drawerLayoutID);
+        drawerLayout = bindingBase.drawerLayoutID;
+        super.setContentView(drawerLayout);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        createEventsListeners();
+    }
+
+    private void createEventsListeners() {
         bindingBase.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -48,5 +63,41 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        actionBarDrawerToggle =
+                new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        super.onDrawerOpened(drawerView);
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        super.onDrawerClosed(drawerView);
+                    }
+                };
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        actionBarDrawerToggle.onConfigurationChanged(newConfig);
+        super.onConfigurationChanged(newConfig);
     }
 }

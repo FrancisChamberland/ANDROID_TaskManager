@@ -1,5 +1,6 @@
 package com.chamberland.kickmyb.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class HomeActivity extends BaseActivity {
 
         currentActivity = "Home";
         this.setTitle("Accueil");
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         createEventsListeners();
         initRecycler();
         fillRecycler();
