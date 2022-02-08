@@ -29,14 +29,14 @@ public class HomeActivity extends BaseActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        currentActivity = "Home";
         this.setTitle("Accueil");
         createEventsListeners();
         initRecycler();
         fillRecycler();
     }
 
-    @Override
-    void createEventsListeners() {
+    private void createEventsListeners() {
         binding.btnAddTask.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, CreateActivity.class);
             startActivity(i);

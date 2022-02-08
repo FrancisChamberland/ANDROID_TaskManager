@@ -20,12 +20,12 @@ public class CreateActivity extends BaseActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        currentActivity = "Create";
         this.setTitle("Ajouter");
         createEventsListeners();
     }
 
-    @Override
-    void createEventsListeners() {
+    private void createEventsListeners() {
         binding.btnCreateTask.setOnClickListener(v -> {
             Intent i = new Intent(CreateActivity.this, HomeActivity.class);
             startActivity(i);

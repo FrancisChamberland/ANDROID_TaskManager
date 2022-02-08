@@ -18,15 +18,16 @@ public class ConsultActivity extends BaseActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        currentActivity = "Consult";
         this.setTitle("Tâche");
         createEventsListeners();
+
         binding.traskProgressInput.setMin(0);
         binding.traskProgressInput.setMax(100);
         binding.traskProgressInput.setValue(75);
     }
 
-    @Override
-    void createEventsListeners() {
+    private void createEventsListeners() {
 
     }
 }

@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.chamberland.kickmyb.databinding.ActivityRegisterBinding;
 
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
 
     @Override
@@ -20,8 +22,7 @@ public class RegisterActivity extends BaseActivity {
         createEventsListeners();
     }
 
-    @Override
-    void createEventsListeners(){
+    private void createEventsListeners(){
         binding.btnConnect.setOnClickListener(v -> {
             Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
             startActivity(i);
