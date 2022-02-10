@@ -80,15 +80,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Progression"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:layout_marginBottom="15dp"
             android:textColor="@color/black"/>
-
-        <com.chamberland.kickmyb.utils.HorizontalNumberPicker
-            android:id="@+id/traskProgressInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -121,5 +115,39 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnUpTaskProgress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="13dp"
+            android:background="@drawable/round_button"
+            android:drawableLeft="@drawable/ic_baseline_remove_24"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/btnDownTaskProgress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="13dp"
+            android:background="@drawable/round_button"
+            android:drawableLeft="@drawable/ic_baseline_add_24"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/taskProgressSeekBar"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:max="100"
+        android:progress="70" />
 
 </LinearLayout>

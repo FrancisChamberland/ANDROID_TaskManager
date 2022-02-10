@@ -2,8 +2,10 @@ package com.chamberland.kickmyb.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SeekBar;
 
 import com.chamberland.kickmyb.databinding.ActivityConnexionBinding;
 import com.chamberland.kickmyb.databinding.ActivityConsultBinding;
@@ -20,9 +22,5 @@ public class ConsultActivity extends BaseActivity {
 
         currentActivity = "Consult";
         this.setTitle("Tâche");
-
-        binding.traskProgressInput.setMin(0);
-        binding.traskProgressInput.setMax(100);
-        binding.traskProgressInput.setValue(75);
     }
 }
