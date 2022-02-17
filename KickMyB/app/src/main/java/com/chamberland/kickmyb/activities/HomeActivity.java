@@ -15,6 +15,8 @@ import com.chamberland.kickmyb.adapters.TaskAdapter;
 import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
 import com.chamberland.kickmyb.models.Task;
 
+import org.kickmyb.transfer.AddTaskRequest;
+
 import java.time.LocalDateTime;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
