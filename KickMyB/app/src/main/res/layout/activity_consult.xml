@@ -64,7 +64,7 @@
             android:id="@+id/taskElapsedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 jours sur 10"
+            android:text="3 minutes"
             android:textSize="20dp"
             android:textColor="@color/black"/>
 

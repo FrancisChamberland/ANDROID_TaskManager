@@ -15,8 +15,6 @@ import com.chamberland.kickmyb.adapters.TaskAdapter;
 import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
 import com.chamberland.kickmyb.models.Task;
 
-import org.kickmyb.transfer.AddTaskRequest;
-
 import java.time.LocalDateTime;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,7 +57,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void fillRecycler() {
-        for (int i = 0; i < 200; i++){
+        for (int i = 0; i < 300; i++){
             LocalDateTime dueDateTime = LocalDateTime.of(2022, 2, 25, 11, 50);
             Task task = new Task("Faire cela", dueDateTime);
             adapter.add(task);

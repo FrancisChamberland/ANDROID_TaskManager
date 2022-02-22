@@ -16,11 +16,11 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddTask"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_gravity="end|bottom"
         app:rippleColor="@color/white"
-        app:fabCustomSize="85dp"
+        app:fabCustomSize="75dp"
         android:src="@drawable/ic_baseline_add_24"
         app:tint="@color/white"
         app:maxImageSize="30dp"
