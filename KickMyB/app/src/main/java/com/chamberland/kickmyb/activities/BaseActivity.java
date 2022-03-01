@@ -18,7 +18,6 @@ import com.chamberland.kickmyb.databinding.ActivityBaseBinding;
 import com.google.android.material.navigation.NavigationView;
 
 public abstract class BaseActivity extends AppCompatActivity {
-
     String currentActivity;
     ActivityBaseBinding bindingBase;
     ActionBarDrawerToggle actionBarDrawerToggle;
