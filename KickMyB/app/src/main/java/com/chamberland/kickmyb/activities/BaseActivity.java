@@ -12,25 +12,30 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.databinding.ActivityBaseBinding;
+import com.chamberland.kickmyb.utils.SessionSigninResponse;
 import com.google.android.material.navigation.NavigationView;
+
+import org.kickmyb.transfer.SigninResponse;
 
 public abstract class BaseActivity extends AppCompatActivity {
     String currentActivity;
     ActivityBaseBinding bindingBase;
     ActionBarDrawerToggle actionBarDrawerToggle;
     DrawerLayout drawerLayout;
-
+    SigninResponse sessionSigninResponse;
 
     @Override
     public void setContentView(View view) {
         bindingBase = ActivityBaseBinding.inflate(getLayoutInflater());
         bindingBase.baseFrameLayout.addView (view);
         drawerLayout = bindingBase.drawerLayoutID;
+        sessionSigninResponse = SessionSigninResponse.get();
         super.setContentView(drawerLayout);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createEventsListeners();
     }
@@ -67,6 +72,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
                     @Override
                     public void onDrawerOpened(View drawerView) {
+                        TextView currentUsername = (TextView) findViewById(R.id.currentUser);
+                        currentUsername.setText(sessionSigninResponse.username);
                         super.onDrawerOpened(drawerView);
                     }
 
