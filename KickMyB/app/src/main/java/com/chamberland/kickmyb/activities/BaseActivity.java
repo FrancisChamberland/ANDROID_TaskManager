@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -17,10 +18,16 @@ import android.widget.TextView;
 
 import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.databinding.ActivityBaseBinding;
+import com.chamberland.kickmyb.http.RetrofitUtil;
+import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.utils.SessionSigninResponse;
 import com.google.android.material.navigation.NavigationView;
 
 import org.kickmyb.transfer.SigninResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class BaseActivity extends AppCompatActivity {
     String currentActivity;
@@ -28,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     DrawerLayout drawerLayout;
     SigninResponse sessionSigninResponse;
+    Service service;
 
     @Override
     public void setContentView(View view) {
@@ -36,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         drawerLayout = bindingBase.drawerLayoutID;
         sessionSigninResponse = SessionSigninResponse.get();
         super.setContentView(drawerLayout);
+        service = RetrofitUtil.get();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createEventsListeners();
     }
@@ -60,8 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         }
                         break;
                     case (R.id.navDisconnect):
-                        i = new Intent(BaseActivity.this, ConnexionActivity.class);
-                        startActivity(i);
+                        sendSignoutRequest();
                         break;
                 }
                 return false;
@@ -105,5 +113,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
+    }
+
+    public void sendSignoutRequest(){
+        service.signout().enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()){
+                    Log.i("SIGNOUT", "Response is successful");
+                    Intent i = new Intent(BaseActivity.this, ConnexionActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Log.e("SIGNOUT", "Response is not successful");
+                }
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("SIGNOUT", "Request failed");
+            }
+        });
     }
 }

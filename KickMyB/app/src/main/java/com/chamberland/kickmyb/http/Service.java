@@ -14,4 +14,7 @@ public interface Service {
 
     @POST("/api/id/signin")
     Call<SigninResponse> signin(@Body SigninRequest signinRequest);
+
+    @POST("/api/id/signout")
+    Call<String> signout();
 }
