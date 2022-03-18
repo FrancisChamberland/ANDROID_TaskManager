@@ -10,6 +10,8 @@ import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.databinding.ActivityConnexionBinding;
 import com.chamberland.kickmyb.databinding.ActivityCreateBinding;
 
+import java.util.Date;
+
 public class CreateActivity extends BaseActivity {
     private ActivityCreateBinding binding;
 

@@ -14,12 +14,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class Task {
+public class Task2 {
     private String name;
     private ZonedDateTime startDateTime;
     private ZonedDateTime dueDateTime;
 
-    public Task(String name, LocalDateTime dueDateTime){
+    public Task2(String name, LocalDateTime dueDateTime){
         this.name = name;
         this.dueDateTime = getDateTimeFromLocal(dueDateTime);
         startDateTime = getDateTimeNow();

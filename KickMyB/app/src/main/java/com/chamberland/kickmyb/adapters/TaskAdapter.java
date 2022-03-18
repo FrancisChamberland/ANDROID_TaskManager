@@ -2,6 +2,7 @@ package com.chamberland.kickmyb.adapters;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.ParcelUuid;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chamberland.kickmyb.activities.ConsultActivity;
 import com.chamberland.kickmyb.activities.CreateActivity;
 import com.chamberland.kickmyb.activities.HomeActivity;
-import com.chamberland.kickmyb.models.Task;
+import com.chamberland.kickmyb.transfer.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void add(Task task) {
         localDataSet.add(task);
         notifyItemChanged(localDataSet.size() - 1);
+    }
+
+    public void set(List<Task> tasks){
+        localDataSet = tasks;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -79,14 +85,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         // contents of the view with that element
         Task task = localDataSet.get(position);
 
-        viewHolder.name.setText(task.getName());
+        /*viewHolder.name.setText(task.getName());
         viewHolder.elapsedTime.setText(task.getFormattedTimeElapsed());
         viewHolder.dueDate.setText(task.getEndDateTime());
 
         int progressPercentage = 75;
 
         viewHolder.progress.setProgress(progressPercentage);
-        viewHolder.progressPercentage.setText(String.format("%s%%", progressPercentage));
+        viewHolder.progressPercentage.setText(String.format("%s%%", progressPercentage));*/
 
         viewHolder.itemView.setOnClickListener(view -> {
             Intent i = new Intent(view.getContext(), ConsultActivity.class);
