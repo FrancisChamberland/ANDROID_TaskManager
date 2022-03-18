@@ -18,6 +18,7 @@ import com.chamberland.kickmyb.activities.ConsultActivity;
 import com.chamberland.kickmyb.activities.CreateActivity;
 import com.chamberland.kickmyb.activities.HomeActivity;
 import com.chamberland.kickmyb.transfer.Task;
+import com.chamberland.kickmyb.utils.DateFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,14 +86,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         // contents of the view with that element
         Task task = localDataSet.get(position);
 
-        /*viewHolder.name.setText(task.getName());
-        viewHolder.elapsedTime.setText(task.getFormattedTimeElapsed());
-        viewHolder.dueDate.setText(task.getEndDateTime());
-
-        int progressPercentage = 75;
-
-        viewHolder.progress.setProgress(progressPercentage);
-        viewHolder.progressPercentage.setText(String.format("%s%%", progressPercentage));*/
+        viewHolder.name.setText(task.name);
+        viewHolder.elapsedTime.setText(String.format("%s%%", task.percentageTimeSpent));
+        viewHolder.dueDate.setText(DateFormatter.getFormattedDate(task.deadline, "yyyy-MM-dd HH:mm:ss"));
+        viewHolder.progressPercentage.setText(String.format("%s%%", task.percentageDone));
 
         viewHolder.itemView.setOnClickListener(view -> {
             Intent i = new Intent(view.getContext(), ConsultActivity.class);

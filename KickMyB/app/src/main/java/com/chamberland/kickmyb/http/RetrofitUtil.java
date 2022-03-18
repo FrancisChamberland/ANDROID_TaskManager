@@ -1,5 +1,7 @@
 package com.chamberland.kickmyb.http;
 
+import org.kickmyb.CustomGson;
+
 import java.util.Arrays;
 
 import okhttp3.ConnectionSpec;
@@ -17,9 +19,9 @@ public class RetrofitUtil {
         if (instance == null) { //  ca sera le cas au tout premier appel
             Retrofit retrofit = new Retrofit.Builder()
                     .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(CustomGson.getIt()))
                     .client(client())
-                    .baseUrl("https://kickmyb-server.herokuapp.com/")
+                    .baseUrl("http://10.0.2.2:8080/")
                     .build();
 
             instance = retrofit.create(Service.class);

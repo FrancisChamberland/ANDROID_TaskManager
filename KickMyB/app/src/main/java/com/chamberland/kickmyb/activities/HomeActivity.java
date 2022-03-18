@@ -32,7 +32,6 @@ public class HomeActivity extends BaseActivity {
     private TaskAdapter adapter;
     private Service service;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

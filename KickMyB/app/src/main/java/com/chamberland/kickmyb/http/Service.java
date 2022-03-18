@@ -2,6 +2,7 @@ package com.chamberland.kickmyb.http;
 
 import com.chamberland.kickmyb.transfer.Task;
 
+import org.kickmyb.transfer.AddTaskRequest;
 import org.kickmyb.transfer.HomeItemResponse;
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
@@ -26,4 +27,7 @@ public interface Service {
 
     @GET("/api/home")
     Call<List<Task>> getTasks();
+
+    @POST("/api/add")
+    Call<String> addTask(@Body AddTaskRequest addTaskRequest);
 }
