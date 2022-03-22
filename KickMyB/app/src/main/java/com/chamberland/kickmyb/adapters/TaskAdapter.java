@@ -2,7 +2,7 @@ package com.chamberland.kickmyb.adapters;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.ParcelUuid;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +15,28 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chamberland.kickmyb.activities.ConsultActivity;
-import com.chamberland.kickmyb.activities.CreateActivity;
-import com.chamberland.kickmyb.activities.HomeActivity;
+import com.chamberland.kickmyb.http.RetrofitUtil;
+import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.transfer.Task;
 import com.chamberland.kickmyb.utils.DateFormatter;
+import com.google.gson.Gson;
+
+import org.kickmyb.transfer.TaskDetailResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private List<Task> localDataSet;
+    private Service service;
+    private TaskDetailResponse taskDetailResponse;
 
     public TaskAdapter() {
+        service = RetrofitUtil.get();
         localDataSet = new ArrayList<>();
     }
 
@@ -88,12 +98,34 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         viewHolder.name.setText(task.name);
         viewHolder.elapsedTime.setText(String.format("%s%%", task.percentageTimeSpent));
-        viewHolder.dueDate.setText(DateFormatter.getFormattedDate(task.deadline, "yyyy-MM-dd HH:mm:ss"));
+        viewHolder.dueDate.setText(DateFormatter.getFormatted(task.deadline, "yyyy-MM-dd"));
         viewHolder.progressPercentage.setText(String.format("%s%%", task.percentageDone));
 
         viewHolder.itemView.setOnClickListener(view -> {
+            requestTaskDetail(task.id);
+            if (taskDetailResponse == null) return;
+            Gson gson = new Gson();
             Intent i = new Intent(view.getContext(), ConsultActivity.class);
+            i.putExtra("task", gson.toJson(taskDetailResponse));
             view.getContext().startActivity(i);
+        });
+    }
+
+    private void requestTaskDetail(long id){
+        service.detail(id).enqueue(new Callback<TaskDetailResponse>() {
+            @Override
+            public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
+                if (response.isSuccessful()){
+                    Log.i("DETAIL", "Response is successful");
+                    taskDetailResponse = response.body();
+                } else {
+                    Log.i("DETAIL", "Response is not successful");
+                }
+            }
+            @Override
+            public void onFailure(Call<TaskDetailResponse> call, Throwable t) {
+                Log.i("DETAIL", "Resquest failed");
+            }
         });
     }
 }

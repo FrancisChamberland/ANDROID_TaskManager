@@ -7,6 +7,7 @@ import org.kickmyb.transfer.HomeItemResponse;
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
 import org.kickmyb.transfer.SignupRequest;
+import org.kickmyb.transfer.TaskDetailResponse;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface Service {
     @POST("/api/id/signup")
@@ -30,4 +32,7 @@ public interface Service {
 
     @POST("/api/add")
     Call<String> addTask(@Body AddTaskRequest addTaskRequest);
+
+    @GET("/api/detail/{id}")
+    Call<TaskDetailResponse> detail(@Path("id") long id);
 }

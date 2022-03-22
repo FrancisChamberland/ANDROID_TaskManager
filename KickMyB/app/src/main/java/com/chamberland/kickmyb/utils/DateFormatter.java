@@ -18,7 +18,7 @@ public class DateFormatter {
         return calendar.getTime();
     }
 
-    public static String getFormattedDate(Date date, String pattern){
+    public static String getFormatted(Date date, String pattern){
         return new SimpleDateFormat(pattern).format(date);
     }
 }
