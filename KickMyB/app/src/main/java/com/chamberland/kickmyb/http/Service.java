@@ -35,4 +35,7 @@ public interface Service {
 
     @GET("/api/detail/{id}")
     Call<TaskDetailResponse> detail(@Path("id") long id);
+
+    @GET("/api/progress/{taskID}/{value}")
+    Call<String> updateProgress(@Path("taskID") long taskID, @Path("value") int value);
 }
