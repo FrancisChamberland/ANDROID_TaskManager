@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +13,6 @@ import com.chamberland.kickmyb.http.RetrofitUtil;
 import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.utils.SessionSigninResponse;
 
-import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
 import org.kickmyb.transfer.SignupRequest;
 
@@ -38,6 +38,22 @@ public class RegisterActivity extends AppCompatActivity {
         createEventsListeners();
     }
 
+    private void createEventsListeners(){
+        binding.btnConnect.setOnClickListener(v -> {
+            Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
+            startActivity(i);
+        });
+        binding.btnRegister.setOnClickListener(v -> {
+            setRegisterInputs();
+            if (!inputsAreValid()){
+                displayFailedInscription();
+                return;
+            }
+            SignupRequest signupRequest = getSignupResquest(inputUsername, inputPassword);
+            requestSignup(signupRequest);
+        });
+    }
+
     private void setRegisterInputs(){
         inputUsername = String.valueOf(binding.inputUsername.getEditText().getText());
         inputPassword = String.valueOf(binding.inputPassword.getEditText().getText());
@@ -55,7 +71,11 @@ public class RegisterActivity extends AppCompatActivity {
         return signupRequest;
     }
 
-    private void sendSignupRequest(SignupRequest signupRequest){
+    private void displayFailedInscription(){
+        Toast.makeText(RegisterActivity.this, "Inscription échouée", Toast.LENGTH_LONG).show();
+    }
+
+    private void requestSignup(SignupRequest signupRequest){
         service.signup(signupRequest).enqueue(new Callback<SigninResponse>() {
             @Override
             public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
@@ -64,28 +84,18 @@ public class RegisterActivity extends AppCompatActivity {
                     SessionSigninResponse.set(response.body());
                     Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
                     startActivity(i);
+                    finishAffinity();
                 }
                 else{
                     Log.e("SIGNUP", "Response is not successful");
+                    displayFailedInscription();
                 }
             }
             @Override
             public void onFailure(Call<SigninResponse> call, Throwable t) {
                 Log.e("SIGNUP", "Request failed");
+                displayFailedInscription();
             }
-        });
-    }
-
-    private void createEventsListeners(){
-        binding.btnConnect.setOnClickListener(v -> {
-            Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
-            startActivity(i);
-        });
-        binding.btnRegister.setOnClickListener(v -> {
-            setRegisterInputs();
-            if (!inputsAreValid()) return;
-            SignupRequest signupRequest = getSignupResquest(inputUsername, inputPassword);
-            sendSignupRequest(signupRequest);
         });
     }
 }

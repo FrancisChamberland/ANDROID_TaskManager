@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:text="Ajouter une tâche"
+        android:textColor="@color/black"
         android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,23 +28,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nom"
+            android:text="Description"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputTaskName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Nom"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Description">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,8 +52,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="2">
-    </LinearLayout>
+        android:layout_weight="2"></LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -67,16 +65,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Échéance"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
 
         <DatePicker
             android:id="@+id/taskDueDate"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:datePickerMode="spinner"
-            android:calendarViewShown="false" />
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
 
 
     </LinearLayout>
@@ -84,8 +82,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1">
-    </LinearLayout>
+        android:layout_weight="0.1"></LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

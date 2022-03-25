@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import com.chamberland.kickmyb.R;
@@ -43,13 +44,17 @@ public class CreateActivity extends BaseActivity {
         createEventsListeners();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindingBase.drawerLayoutID.closeDrawer(Gravity.LEFT, false);
+    }
+
     private void createEventsListeners() {
         binding.btnCreateTask.setOnClickListener(v -> {
             setAddTaskInputs();
             AddTaskRequest addTaskRequest = getAddTaskRequest(taskName, taskDeadline);
             requestAddTask(addTaskRequest);
-            Intent i = new Intent(CreateActivity.this, HomeActivity.class);
-            startActivity(i);
         });
     }
 
@@ -71,6 +76,8 @@ public class CreateActivity extends BaseActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()){
                     Log.i("CREATE", "Response is successful");
+                    Intent i = new Intent(CreateActivity.this, HomeActivity.class);
+                    startActivity(i);
                 } else {
                     Log.i("CREATE", "Response is not successful");
                 }

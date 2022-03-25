@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +15,6 @@ import com.chamberland.kickmyb.utils.SessionSigninResponse;
 
 import org.kickmyb.transfer.SigninRequest;
 import org.kickmyb.transfer.SigninResponse;
-import org.kickmyb.transfer.SignupRequest;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +37,18 @@ public class ConnexionActivity extends AppCompatActivity {
         createEventsListeners();
     }
 
+    private void createEventsListeners(){
+        binding.btnRegister.setOnClickListener(v -> {
+            Intent i = new Intent(ConnexionActivity.this, RegisterActivity.class);
+            startActivity(i);
+        });
+        binding.btnConnect.setOnClickListener(v -> {
+            setRegisterInputs();
+            SigninRequest signinRequest = getSigninResquest(inputUsername, inputPassword);
+            requestSignin(signinRequest);
+        });
+    }
+
     private void setRegisterInputs(){
         inputUsername = String.valueOf(binding.inputUsername.getEditText().getText());
         inputPassword = String.valueOf(binding.inputPassword.getEditText().getText());
@@ -49,7 +61,7 @@ public class ConnexionActivity extends AppCompatActivity {
         return signinRequest;
     }
 
-    private void sendSigninRequest(SigninRequest signinRequest){
+    private void requestSignin(SigninRequest signinRequest){
         service.signin(signinRequest).enqueue(new Callback<SigninResponse>() {
             @Override
             public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
@@ -58,27 +70,18 @@ public class ConnexionActivity extends AppCompatActivity {
                     SessionSigninResponse.set(response.body());
                     Intent i = new Intent(ConnexionActivity.this, HomeActivity.class);
                     startActivity(i);
+                    finishAffinity();
                 }
                 else{
                     Log.e("SIGNIN", "Response is not successful");
+                    Toast.makeText(ConnexionActivity.this, "Connexion échouée", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<SigninResponse> call, Throwable t) {
                 Log.e("SIGNIN", "Request failed");
+                Toast.makeText(ConnexionActivity.this, "Connexion échouée", Toast.LENGTH_LONG).show();
             }
-        });
-    }
-
-    private void createEventsListeners(){
-        binding.btnRegister.setOnClickListener(v -> {
-            Intent i = new Intent(ConnexionActivity.this, RegisterActivity.class);
-            startActivity(i);
-        });
-        binding.btnConnect.setOnClickListener(v -> {
-            setRegisterInputs();
-            SigninRequest signinRequest = getSigninResquest(inputUsername, inputPassword);
-            sendSigninRequest(signinRequest);
         });
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.RequiresApi;
@@ -44,7 +45,20 @@ public class HomeActivity extends BaseActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         createEventsListeners();
         initRecycler();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         requestTasks();
+        bindingBase.drawerLayoutID.closeDrawer(Gravity.LEFT, false);
+    }
+
+    private void createEventsListeners() {
+        binding.btnAddTask.setOnClickListener(v -> {
+            Intent i = new Intent(HomeActivity.this, CreateActivity.class);
+            startActivity(i);
+        });
     }
 
     private void requestTasks(){
@@ -62,13 +76,6 @@ public class HomeActivity extends BaseActivity {
             public void onFailure(Call<List<Task>> call, Throwable t) {
                 Log.i("HOME", "Request failed");
             }
-        });
-    }
-
-    private void createEventsListeners() {
-        binding.btnAddTask.setOnClickListener(v -> {
-            Intent i = new Intent(HomeActivity.this, CreateActivity.class);
-            startActivity(i);
         });
     }
 

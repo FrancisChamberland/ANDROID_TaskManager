@@ -6,14 +6,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chamberland.kickmyb.R;
@@ -39,15 +37,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(View view) {
+        sessionSigninResponse = SessionSigninResponse.get();
         bindingBase = ActivityBaseBinding.inflate(getLayoutInflater());
         bindingBase.baseFrameLayout.addView (view);
         drawerLayout = bindingBase.drawerLayoutID;
-        sessionSigninResponse = SessionSigninResponse.get();
         super.setContentView(drawerLayout);
         service = RetrofitUtil.get();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createEventsListeners();
     }
+
 
     private void createEventsListeners() {
         bindingBase.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                         if (!currentActivity.equals("Home")){
                             i = new Intent(BaseActivity.this, HomeActivity.class);
                             startActivity(i);
-                            new Intent(BaseActivity.this, ConnexionActivity.class);
                         }
                         break;
                     case (R.id.navAddTask):
@@ -69,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         }
                         break;
                     case (R.id.navDisconnect):
-                        sendSignoutRequest();
+                        requestSignout();
                         break;
                 }
                 return false;
@@ -80,14 +78,19 @@ public abstract class BaseActivity extends AppCompatActivity {
                 new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
                     @Override
                     public void onDrawerOpened(View drawerView) {
-                        TextView currentUsername = (TextView) findViewById(R.id.currentUser);
-                        currentUsername.setText(sessionSigninResponse.username);
                         super.onDrawerOpened(drawerView);
                     }
 
                     @Override
                     public void onDrawerClosed(View drawerView) {
                         super.onDrawerClosed(drawerView);
+                    }
+
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        TextView currentUsername = (TextView) findViewById(R.id.currentUser);
+                        currentUsername.setText(sessionSigninResponse.username);
+                        super.onDrawerSlide(drawerView, slideOffset);
                     }
                 };
 
@@ -115,7 +118,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
-    public void sendSignoutRequest(){
+    public void requestSignout(){
         service.signout().enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -123,6 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     Log.i("SIGNOUT", "Response is successful");
                     Intent i = new Intent(BaseActivity.this, ConnexionActivity.class);
                     startActivity(i);
+                    finishAffinity();
                 }
                 else{
                     Log.e("SIGNOUT", "Response is not successful");

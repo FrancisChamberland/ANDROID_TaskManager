@@ -1,5 +1,6 @@
 package com.chamberland.kickmyb.adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private List<Task> localDataSet;
     private Service service;
-    private TaskDetailResponse taskDetailResponse;
+    private Context context;
 
     public TaskAdapter() {
         service = RetrofitUtil.get();
@@ -84,6 +85,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.task, viewGroup, false);
 
+        context = viewGroup.getContext();
+
         return new ViewHolder(view);
     }
 
@@ -100,32 +103,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         viewHolder.elapsedTime.setText(String.format("%s%%", task.percentageTimeSpent));
         viewHolder.dueDate.setText(DateFormatter.getFormatted(task.deadline, "yyyy-MM-dd"));
         viewHolder.progressPercentage.setText(String.format("%s%%", task.percentageDone));
+        viewHolder.progress.setProgress(task.percentageDone);
 
         viewHolder.itemView.setOnClickListener(view -> {
-            requestTaskDetail(task.id);
-            if (taskDetailResponse == null) return;
-            Gson gson = new Gson();
-            Intent i = new Intent(view.getContext(), ConsultActivity.class);
-            i.putExtra("task", gson.toJson(taskDetailResponse));
-            view.getContext().startActivity(i);
-        });
-    }
-
-    private void requestTaskDetail(long id){
-        service.detail(id).enqueue(new Callback<TaskDetailResponse>() {
-            @Override
-            public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
-                if (response.isSuccessful()){
-                    Log.i("DETAIL", "Response is successful");
-                    taskDetailResponse = response.body();
-                } else {
-                    Log.i("DETAIL", "Response is not successful");
-                }
-            }
-            @Override
-            public void onFailure(Call<TaskDetailResponse> call, Throwable t) {
-                Log.i("DETAIL", "Resquest failed");
-            }
+            Intent i = new Intent(context, ConsultActivity.class);
+            i.putExtra("taskId", task.id);
+            context.startActivity(i);
         });
     }
 }

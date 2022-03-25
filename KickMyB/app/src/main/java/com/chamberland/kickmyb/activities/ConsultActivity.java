@@ -1,7 +1,9 @@
 package com.chamberland.kickmyb.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.SeekBar;
 
@@ -28,37 +30,15 @@ public class ConsultActivity extends BaseActivity {
         setContentView(view);
         currentActivity = "Consult";
         this.setTitle("Tâche");
-        Gson gson = new Gson();
-        String jsonTask = getIntent().getStringExtra("task");
-        task = gson.fromJson(jsonTask, TaskDetailResponse.class);
-        taskProgress = task.percentageDone;
-        setTaskBinding();
         createEventsListeners();
     }
 
-    private void setTaskBinding(){
-        binding.detailTaskName.setText(task.name);
-        binding.detailTaskDueDate.setText(DateFormatter.getFormatted(task.deadline, "yyyy-MM-dd"));
-        binding.detailTaskElapsedTime.setText(String.format("%s%%", task.percentageTimeSpent));
-        updateProgress();
-    }
-
-    private void upProgress(){
-        if (taskProgress >= 100) return;
-        taskProgress += 1;
-        updateProgress();
-    }
-
-    private void downProgress(){
-        if (taskProgress <= 0) return;
-        taskProgress -= 1;
-        updateProgress();
-    }
-
-    private void updateProgress(){
-        binding.detailTaskProgressPercentage.setText(String.format("%s%%", taskProgress));
-        binding.taskProgressSeekBar.setProgress(taskProgress);
-        binding.detailTaskProgressBar.setProgress(taskProgress);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long taskId = getIntent().getLongExtra("taskId", -1);
+        requestTaskDetail(taskId);
+        bindingBase.drawerLayoutID.closeDrawer(Gravity.LEFT, false);
     }
 
     private void createEventsListeners(){
@@ -83,8 +63,53 @@ public class ConsultActivity extends BaseActivity {
 
             }
         });
-        binding.btnSaveTask.setOnClickListener(v -> {
+        binding.btnSaveProgress.setOnClickListener(view -> {
             requestUpdateProgress();
+        });
+    }
+
+    private void setTaskBinding(){
+        binding.detailTaskName.setText(task.name);
+        binding.detailTaskDueDate.setText(DateFormatter.getFormatted(task.deadline, "yyyy-MM-dd"));
+        binding.detailTaskElapsedTime.setText(String.format("%s%%", task.percentageTimeSpent));
+        taskProgress = task.percentageDone;
+        updateProgress();
+    }
+
+    private void upProgress(){
+        if (taskProgress >= 100) return;
+        taskProgress += 1;
+        updateProgress();
+    }
+
+    private void downProgress(){
+        if (taskProgress <= 0) return;
+        taskProgress -= 1;
+        updateProgress();
+    }
+
+    private void updateProgress(){
+        binding.detailTaskProgressPercentage.setText(String.format("%s%%", taskProgress));
+        binding.taskProgressSeekBar.setProgress(taskProgress);
+        binding.detailTaskProgressBar.setProgress(taskProgress);
+    }
+
+    private void requestTaskDetail(long id){
+        service.detail(id).enqueue(new Callback<TaskDetailResponse>() {
+            @Override
+            public void onResponse(Call<TaskDetailResponse> call, Response<TaskDetailResponse> response) {
+                if (response.isSuccessful()){
+                    Log.i("DETAIL", "Response is successful");
+                    task = response.body();
+                    setTaskBinding();
+                } else {
+                    Log.i("DETAIL", "Response is not successful");
+                }
+            }
+            @Override
+            public void onFailure(Call<TaskDetailResponse> call, Throwable t) {
+                Log.i("DETAIL", "Resquest failed");
+            }
         });
     }
 
@@ -94,6 +119,8 @@ public class ConsultActivity extends BaseActivity {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()){
                     Log.i("UPDATE", "Response is successful");
+                    Intent i = new Intent(ConsultActivity.this, HomeActivity.class);
+                    startActivity(i);
                 } else {
                     Log.i("UPDATE", "Response is not successful");
                 }

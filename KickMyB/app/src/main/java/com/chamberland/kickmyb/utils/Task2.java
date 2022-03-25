@@ -1,4 +1,4 @@
-package com.chamberland.kickmyb.models;
+package com.chamberland.kickmyb.utils;
 
 import android.os.Build;
 
