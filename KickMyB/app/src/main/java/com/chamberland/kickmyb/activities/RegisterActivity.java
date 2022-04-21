@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.btnRegister.setOnClickListener(v -> {
             removeErrors();
             setRegisterInputs();
-            if (!inputsAreValid()){
+            if (!inputPassword.equals(inputConfirmPassword)){
                 binding.inputConfirmPassword.setError("The password and the confirmation password do not match");
                 return;
             }
@@ -73,10 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
         inputConfirmPassword = String.valueOf(binding.inputConfirmPassword.getEditText().getText());
     }
 
-    private boolean inputsAreValid(){
-        return (inputPassword.equals(inputConfirmPassword));
-    }
-
     private void removeErrors(){
         binding.inputUsername.setError(null);
         binding.inputPassword.setError(null);
@@ -90,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         return signupRequest;
     }
 
-    private void showErrors(String error){
+    private void showError(String error){
         if (error.contains("UsernameTooShort")){
             binding.inputUsername.setError("The username must be at least 2 characters");
         }
@@ -119,7 +115,9 @@ public class RegisterActivity extends AppCompatActivity {
                     try {
                         progressDialog.dismiss();
                         Log.e("SIGNUP", "Response is not successful");
-                        showErrors(response.errorBody().string());
+                        if (response.code() == 400){
+                            showError(response.errorBody().string());
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

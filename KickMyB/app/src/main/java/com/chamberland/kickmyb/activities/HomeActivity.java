@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,9 +19,11 @@ import com.chamberland.kickmyb.databinding.ActivityHomeBinding;
 import com.chamberland.kickmyb.http.RetrofitUtil;
 import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.transfer.Task;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.HomeItemResponse;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -69,12 +72,22 @@ public class HomeActivity extends BaseActivity {
                     Log.i("HOME", "Response is successful");
                     adapter.set(response.body());
                 } else{
-                    Log.i("HOME", "Response is not successful");
+                    try {
+                        Log.i("HOME", "Response is not successful");
+                        if (response.code() == 403){
+                            Intent i = new Intent(HomeActivity.this, ConnexionActivity.class);
+                            startActivity(i);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
                 Log.i("HOME", "Request failed");
+                Snackbar.make(binding.homeLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
             }
         });
     }

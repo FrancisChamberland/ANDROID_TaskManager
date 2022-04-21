@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.chamberland.kickmyb.http.RetrofitUtil;
 import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.utils.SessionSigninResponse;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.SigninResponse;
 
@@ -135,6 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.e("SIGNOUT", "Request failed");
+                Snackbar.make(bindingBase.baseFrameLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
             }
         });
     }

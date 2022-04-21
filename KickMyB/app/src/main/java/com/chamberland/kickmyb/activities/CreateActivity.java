@@ -3,18 +3,22 @@ package com.chamberland.kickmyb.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.databinding.ActivityCreateBinding;
 import com.chamberland.kickmyb.http.RetrofitUtil;
 import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.utils.DateFormatter;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.AddTaskRequest;
 
+import java.io.IOException;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -49,6 +53,7 @@ public class CreateActivity extends BaseActivity {
 
     private void initEventsListeners() {
         binding.btnCreateTask.setOnClickListener(v -> {
+            removeErrors();
             setAddTaskInputs();
             AddTaskRequest addTaskRequest = getAddTaskRequest(taskName, taskDeadline);
             requestAddTask(addTaskRequest);
@@ -73,6 +78,22 @@ public class CreateActivity extends BaseActivity {
         return addTaskRequest;
     }
 
+    private void removeErrors(){
+        binding.inputTaskName.setError(null);
+    }
+
+    private void showError(String error) {
+        if (error.contains("Empty")) {
+            binding.inputTaskName.setError("Description is required");
+        }
+        if (error.contains("TooShort")) {
+            binding.inputTaskName.setError("Description must have at least 2 characters");
+        }
+        if (error.contains("Existing")) {
+            binding.inputTaskName.setError("This description already exists");
+        }
+    }
+
     private void requestAddTask(AddTaskRequest addTaskRequest){
         progressDialog.show();
         service.addTask(addTaskRequest).enqueue(new Callback<String>() {
@@ -84,13 +105,25 @@ public class CreateActivity extends BaseActivity {
                     progressDialog.dismiss();
                     startActivity(i);
                 } else {
-                    progressDialog.dismiss();
-                    Log.i("CREATE", "Response is not successful");
+                    try {
+                        progressDialog.dismiss();
+                        Log.i("CREATE", "Response is not successful");
+                        if (response.code() == 403){
+                            Intent i = new Intent(CreateActivity.this, ConnexionActivity.class);
+                            startActivity(i);
+                            return;
+                        } else if (response.code() == 400){
+                            showError(response.errorBody().string());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 progressDialog.dismiss();
+                Snackbar.make(binding.createLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
                 Log.i("CREATE", "Request failed");
             }
         });

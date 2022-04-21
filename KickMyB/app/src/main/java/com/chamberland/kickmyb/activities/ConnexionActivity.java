@@ -52,13 +52,6 @@ public class ConnexionActivity extends AppCompatActivity {
         binding.btnConnect.setOnClickListener(v -> {
             removeErrors();
             setRegisterInputs();
-            if (inputUsername == null || inputUsername.trim().isEmpty()){
-                showError("UsernameRequired");
-                return;
-            }
-            if (inputPassword == null || inputPassword.trim().isEmpty()){
-                showError("PasswordRequired");
-            }
             SigninRequest signinRequest = getSigninResquest(inputUsername, inputPassword);
             requestSignin(signinRequest);
         });
@@ -83,8 +76,7 @@ public class ConnexionActivity extends AppCompatActivity {
     }
 
     private void showError(String error) {
-        if ( TextUtils.isEmpty(binding.inputPassword.getError())
-                && error.contains("BadCredentialsException")) {
+        if (error.contains("BadCredentialsException")) {
             binding.inputPassword.setError("This password is incorrect");
         }
         if (error.contains("InternalAuthenticationServiceException")) {
@@ -120,7 +112,9 @@ public class ConnexionActivity extends AppCompatActivity {
                     try {
                         progressDialog.dismiss();
                         Log.e("SIGNIN", "Response is not successful");
-                        showError(response.errorBody().string());
+                        if (response.code() == 400){
+                            showError(response.errorBody().string());
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

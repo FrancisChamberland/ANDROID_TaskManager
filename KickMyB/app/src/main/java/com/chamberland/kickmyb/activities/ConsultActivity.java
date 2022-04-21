@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 
 import org.kickmyb.transfer.TaskDetailResponse;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -103,7 +105,16 @@ public class ConsultActivity extends BaseActivity {
                     task = response.body();
                     setTaskBinding();
                 } else {
-                    Log.i("DETAIL", "Response is not successful");
+                    try {
+                        Log.i("DETAIL", "Response is not successful");
+                        if (response.code() == 403){
+                            Intent i = new Intent(ConsultActivity.this, ConnexionActivity.class);
+                            startActivity(i);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             @Override
