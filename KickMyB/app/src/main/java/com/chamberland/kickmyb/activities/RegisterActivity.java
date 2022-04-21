@@ -1,20 +1,24 @@
 package com.chamberland.kickmyb.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.chamberland.kickmyb.R;
 import com.chamberland.kickmyb.databinding.ActivityRegisterBinding;
 import com.chamberland.kickmyb.http.RetrofitUtil;
 import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.utils.SessionSigninResponse;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.kickmyb.transfer.SigninResponse;
 import org.kickmyb.transfer.SignupRequest;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,18 +39,19 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(view);
         service = RetrofitUtil.get();
         this.setTitle("Inscription");
-        createEventsListeners();
+        initEventsListeners();
     }
 
-    private void createEventsListeners(){
+    private void initEventsListeners(){
         binding.btnConnect.setOnClickListener(v -> {
             Intent i = new Intent(RegisterActivity.this, ConnexionActivity.class);
             startActivity(i);
         });
         binding.btnRegister.setOnClickListener(v -> {
+            removeErrors();
             setRegisterInputs();
             if (!inputsAreValid()){
-                displayFailedInscription();
+                binding.inputConfirmPassword.setError("The password and the confirmation password do not match");
                 return;
             }
             SignupRequest signupRequest = getSignupResquest(inputUsername, inputPassword);
@@ -64,6 +69,12 @@ public class RegisterActivity extends AppCompatActivity {
         return (inputPassword.equals(inputConfirmPassword));
     }
 
+    private void removeErrors(){
+        binding.inputUsername.setError(null);
+        binding.inputPassword.setError(null);
+        binding.inputConfirmPassword.setError(null);
+    }
+
     private SignupRequest getSignupResquest(String username, String password){
         SignupRequest signupRequest = new SignupRequest();
         signupRequest.username = username;
@@ -71,8 +82,16 @@ public class RegisterActivity extends AppCompatActivity {
         return signupRequest;
     }
 
-    private void displayFailedInscription(){
-        Toast.makeText(RegisterActivity.this, "Inscription échouée", Toast.LENGTH_LONG).show();
+    private void showErrors(String error){
+        if (error.contains("UsernameTooShort")){
+            binding.inputUsername.setError("The username must be at least 2 characters");
+        }
+        if (error.contains("UsernameAlreadyTaken")){
+            binding.inputUsername.setError("This username is already taken");
+        }
+        if (error.contains("PasswordTooShort")){
+            binding.inputPassword.setError("The password must be at least 4 characters");
+        }
     }
 
     private void requestSignup(SignupRequest signupRequest){
@@ -87,14 +106,18 @@ public class RegisterActivity extends AppCompatActivity {
                     finishAffinity();
                 }
                 else{
-                    Log.e("SIGNUP", "Response is not successful");
-                    displayFailedInscription();
+                    try {
+                        Log.e("SIGNUP", "Response is not successful");
+                        showErrors(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             @Override
             public void onFailure(Call<SigninResponse> call, Throwable t) {
+                Snackbar.make(binding.registerLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
                 Log.e("SIGNUP", "Request failed");
-                displayFailedInscription();
             }
         });
     }

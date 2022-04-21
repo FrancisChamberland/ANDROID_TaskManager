@@ -1,163 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="30dp"
     tools:context=".activities.RegisterActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2.5"
-        android:text="Inscrivez-vous"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="30dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nom d'utilisateur"
-            android:textSize="20dp"
+            android:text="Inscrivez-vous"
+            android:textColor="@color/black"
+            android:textSize="30dp"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:layout_weight="1"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputUsername"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Nom d'utilisateur"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5">
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mot de passe"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputPassword"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Mot de passe"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
+                android:text="Nom d'utilisateur"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputUsername"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Nom d'utilisateur"
+                app:errorEnabled="true">
 
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5">
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirmez votre mot de passe"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputConfirmPassword"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Mot de passe de confirmation"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
+                android:text="Mot de passe"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Mot de passe"
+                app:errorEnabled="true">
 
-    </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2.5"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:text="S'inscrire" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
 
-        <Button
-            android:id="@+id/btnConnect"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="5dp"
-            android:text="Se connecter" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Vous avez un compte? Connectez-vous!"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirmez votre mot de passe"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputConfirmPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Mot de passe de confirmation"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:text="S'inscrire" />
+
+            <Button
+                android:id="@+id/btnConnect"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="5dp"
+                android:text="Se connecter" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Vous avez un compte? Connectez-vous!" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
