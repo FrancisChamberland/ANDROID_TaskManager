@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String inputUsername;
     private String inputPassword;
     private String inputConfirmPassword;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         service = RetrofitUtil.get();
         this.setTitle("Inscription");
         initEventsListeners();
+        initProgressDialog();
     }
 
     private void initEventsListeners(){
@@ -57,6 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
             SignupRequest signupRequest = getSignupResquest(inputUsername, inputPassword);
             requestSignup(signupRequest);
         });
+    }
+
+    private void initProgressDialog(){
+        progressDialog = new ProgressDialog(RegisterActivity.this, R.style.LoadingDialogStyle);
+        progressDialog.setTitle("Register");
+        progressDialog.setMessage("Please wait a moment");
     }
 
     private void setRegisterInputs(){
@@ -95,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void requestSignup(SignupRequest signupRequest){
+        progressDialog.show();
         service.signup(signupRequest).enqueue(new Callback<SigninResponse>() {
             @Override
             public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
@@ -102,11 +111,13 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.i("SIGNUP", "Response is successful");
                     SessionSigninResponse.set(response.body());
                     Intent i = new Intent(RegisterActivity.this, HomeActivity.class);
+                    progressDialog.dismiss();
                     startActivity(i);
                     finishAffinity();
                 }
                 else{
                     try {
+                        progressDialog.dismiss();
                         Log.e("SIGNUP", "Response is not successful");
                         showErrors(response.errorBody().string());
                     } catch (IOException e) {
@@ -116,6 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<SigninResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 Snackbar.make(binding.registerLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
                 Log.e("SIGNUP", "Request failed");
             }

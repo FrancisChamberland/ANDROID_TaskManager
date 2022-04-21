@@ -1,7 +1,6 @@
 package com.chamberland.kickmyb.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,17 +8,13 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.chamberland.kickmyb.R;
-import com.chamberland.kickmyb.databinding.ActivityConnexionBinding;
 import com.chamberland.kickmyb.databinding.ActivityCreateBinding;
 import com.chamberland.kickmyb.http.RetrofitUtil;
 import com.chamberland.kickmyb.http.Service;
 import com.chamberland.kickmyb.utils.DateFormatter;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.kickmyb.transfer.AddTaskRequest;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -31,6 +26,7 @@ public class CreateActivity extends BaseActivity {
     private String taskName;
     private Date taskDeadline;
     private Service service;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +37,8 @@ public class CreateActivity extends BaseActivity {
         service = RetrofitUtil.get();
         currentActivity = "Create";
         this.setTitle("Ajouter");
-        createEventsListeners();
+        initEventsListeners();
+        initProgressDialog();
     }
 
     @Override
@@ -50,12 +47,18 @@ public class CreateActivity extends BaseActivity {
         bindingBase.drawerLayoutID.closeDrawer(Gravity.LEFT, false);
     }
 
-    private void createEventsListeners() {
+    private void initEventsListeners() {
         binding.btnCreateTask.setOnClickListener(v -> {
             setAddTaskInputs();
             AddTaskRequest addTaskRequest = getAddTaskRequest(taskName, taskDeadline);
             requestAddTask(addTaskRequest);
         });
+    }
+
+    private void initProgressDialog(){
+        progressDialog = new ProgressDialog(CreateActivity.this, R.style.LoadingDialogStyle);
+        progressDialog.setTitle("Add a new task");
+        progressDialog.setMessage("Please wait a moment");
     }
 
     private void setAddTaskInputs(){
@@ -71,19 +74,23 @@ public class CreateActivity extends BaseActivity {
     }
 
     private void requestAddTask(AddTaskRequest addTaskRequest){
+        progressDialog.show();
         service.addTask(addTaskRequest).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()){
                     Log.i("CREATE", "Response is successful");
                     Intent i = new Intent(CreateActivity.this, HomeActivity.class);
+                    progressDialog.dismiss();
                     startActivity(i);
                 } else {
+                    progressDialog.dismiss();
                     Log.i("CREATE", "Response is not successful");
                 }
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.i("CREATE", "Request failed");
             }
         });
