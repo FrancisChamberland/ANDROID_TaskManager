@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chamberland.kickmyb.R;
@@ -36,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     SigninResponse sessionSigninResponse;
     Service service;
+    ProgressDialog progressDialog;
 
     @Override
     public void setContentView(View view) {
@@ -47,8 +50,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         service = RetrofitUtil.get();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createEventsListeners();
+        initProgressDialog("Logging out");
     }
 
+    private void initProgressDialog(String title){
+        progressDialog = new ProgressDialog(BaseActivity.this, R.style.LoadingDialogStyle);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage("Please wait a moment");
+    }
 
     private void createEventsListeners() {
         bindingBase.navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -121,21 +130,25 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void requestSignout(){
+        progressDialog.show();
         service.signout().enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()){
+                    progressDialog.dismiss();
                     Log.i("SIGNOUT", "Response is successful");
                     Intent i = new Intent(BaseActivity.this, ConnexionActivity.class);
                     startActivity(i);
                     finishAffinity();
                 }
                 else{
+                    progressDialog.dismiss();
                     Log.e("SIGNOUT", "Response is not successful");
                 }
             }
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.e("SIGNOUT", "Request failed");
                 Snackbar.make(bindingBase.baseFrameLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
             }

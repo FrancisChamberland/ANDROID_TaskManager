@@ -25,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ConnexionActivity extends AppCompatActivity {
+public class ConnexionActivity extends BaseActivity {
     private ActivityConnexionBinding binding;
     private Service service;
     private String inputUsername;

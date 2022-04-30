@@ -1,6 +1,7 @@
 package com.chamberland.kickmyb.activities;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class HomeActivity extends BaseActivity {
     private ActivityHomeBinding binding;
     private TaskAdapter adapter;
     private Service service;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,13 @@ public class HomeActivity extends BaseActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         createEventsListeners();
         initRecycler();
+        initProgressDialog("Loading tasks");
+    }
+
+    private void initProgressDialog(String title){
+        progressDialog = new ProgressDialog(HomeActivity.this, R.style.LoadingDialogStyle);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage("Please wait a moment");
     }
 
     @Override
@@ -65,14 +74,17 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void requestTasks(){
+        progressDialog.show();
         service.getTasks().enqueue(new Callback<List<Task>>() {
             @Override
             public void onResponse(Call<List<Task>> call, Response<List<Task>> response) {
                 if (response.isSuccessful()){
+                    progressDialog.dismiss();
                     Log.i("HOME", "Response is successful");
                     adapter.set(response.body());
                 } else{
                     try {
+                        progressDialog.dismiss();
                         Log.i("HOME", "Response is not successful");
                         if (response.code() == 403){
                             Intent i = new Intent(HomeActivity.this, ConnexionActivity.class);
@@ -86,6 +98,7 @@ public class HomeActivity extends BaseActivity {
             }
             @Override
             public void onFailure(Call<List<Task>> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.i("HOME", "Request failed");
                 Snackbar.make(binding.homeLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
             }
