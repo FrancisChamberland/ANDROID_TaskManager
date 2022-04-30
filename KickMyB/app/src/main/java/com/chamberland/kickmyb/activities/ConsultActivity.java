@@ -82,7 +82,7 @@ public class ConsultActivity extends BaseActivity {
     }
 
     private void setTaskBinding(){
-        binding.detailTaskName.setText(task.name);
+        this.setTitle(task.name);
         binding.detailTaskDueDate.setText(DateFormatter.getFormatted(task.deadline, "yyyy-MM-dd"));
         binding.detailTaskElapsedTime.setText(String.format("%s%%", task.percentageTimeSpent));
         taskProgress = task.percentageDone;
