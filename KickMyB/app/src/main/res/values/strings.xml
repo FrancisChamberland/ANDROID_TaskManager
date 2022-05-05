@@ -38,4 +38,11 @@
     <string name="description_short">Description must be at least 2 characters long</string>
     <string name="description_taken">This description already exists</string>
     <string name="connexion_failed">Could not access internet</string>
+    <string name="loging_out">Loging out</string>
+    <string name="loading">Please wait a moment</string>
+    <string name="loging_in">Loging in</string>
+    <string name="creating_account">Creating account</string>
+    <string name="loading_tasks">Loading tasks</string>
+    <string name="creating_task">Creating task</string>
+    <string name="loading_task">Loading task</string>
 </resources>

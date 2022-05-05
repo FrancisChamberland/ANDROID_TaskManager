@@ -50,13 +50,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         service = RetrofitUtil.get();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         createEventsListeners();
-        initProgressDialog("Logging out");
+        initProgressDialog(getString(R.string.loging_out));
     }
 
     private void initProgressDialog(String title){
         progressDialog = new ProgressDialog(BaseActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
-        progressDialog.setMessage("Please wait a moment");
+        progressDialog.setMessage(getString(R.string.loading));
     }
 
     private void createEventsListeners() {

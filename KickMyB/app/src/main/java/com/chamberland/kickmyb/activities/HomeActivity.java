@@ -50,13 +50,13 @@ public class HomeActivity extends BaseActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         createEventsListeners();
         initRecycler();
-        initProgressDialog("Loading tasks");
+        initProgressDialog(getString(R.string.loading_tasks));
     }
 
     private void initProgressDialog(String title){
         progressDialog = new ProgressDialog(HomeActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
-        progressDialog.setMessage("Please wait a moment");
+        progressDialog.setMessage(getString(R.string.loading));
     }
 
     @Override

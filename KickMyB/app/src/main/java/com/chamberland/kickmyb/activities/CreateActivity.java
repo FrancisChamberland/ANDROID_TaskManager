@@ -42,7 +42,7 @@ public class CreateActivity extends BaseActivity {
         currentActivity = "Create";
         this.setTitle(getString(R.string.create_title));
         initEventsListeners();
-        initProgressDialog();
+        initProgressDialog(getString(R.string.creating_task));
     }
 
     @Override
@@ -60,10 +60,10 @@ public class CreateActivity extends BaseActivity {
         });
     }
 
-    private void initProgressDialog(){
+    private void initProgressDialog(String title){
         progressDialog = new ProgressDialog(CreateActivity.this, R.style.LoadingDialogStyle);
-        progressDialog.setTitle("Add a new task");
-        progressDialog.setMessage("Please wait a moment");
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(getString(R.string.loading));
     }
 
     private void setAddTaskInputs(){

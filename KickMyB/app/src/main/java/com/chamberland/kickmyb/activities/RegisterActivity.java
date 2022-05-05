@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         service = RetrofitUtil.get();
         this.setTitle(R.string.register_title);
         initEventsListeners();
-        initProgressDialog();
+        initProgressDialog(getString(R.string.creating_account));
     }
 
     private void initEventsListeners(){
@@ -61,10 +61,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void initProgressDialog(){
+    private void initProgressDialog(String title){
         progressDialog = new ProgressDialog(RegisterActivity.this, R.style.LoadingDialogStyle);
-        progressDialog.setTitle("Register");
-        progressDialog.setMessage("Please wait a moment");
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(getString(R.string.loading));
     }
 
     private void setRegisterInputs(){

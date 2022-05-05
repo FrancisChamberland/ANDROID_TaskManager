@@ -35,15 +35,14 @@ public class ConsultActivity extends BaseActivity {
         View view = binding.getRoot();
         setContentView(view);
         currentActivity = "Consult";
-        this.setTitle("Tâche");
         createEventsListeners();
-        initProgressDialog("Loading task");
+        initProgressDialog(getString(R.string.loading_task));
     }
 
     private void initProgressDialog(String title){
         progressDialog = new ProgressDialog(ConsultActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
-        progressDialog.setMessage("Please wait a moment");
+        progressDialog.setMessage(getString(R.string.loading));
     }
 
     @Override

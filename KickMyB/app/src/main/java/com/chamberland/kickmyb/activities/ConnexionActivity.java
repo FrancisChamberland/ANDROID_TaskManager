@@ -41,7 +41,7 @@ public class ConnexionActivity extends AppCompatActivity {
         service = RetrofitUtil.get();
         this.setTitle(R.string.login_title);
         initEventsListeners();
-        initProgressDialog();
+        initProgressDialog(getString(R.string.loging_in));
     }
 
     private void initEventsListeners(){
@@ -57,10 +57,10 @@ public class ConnexionActivity extends AppCompatActivity {
         });
     }
 
-    private void initProgressDialog(){
+    private void initProgressDialog(String title){
         progressDialog = new ProgressDialog(ConnexionActivity.this, R.style.LoadingDialogStyle);
-        progressDialog.setTitle("Connexion");
-        progressDialog.setMessage("Please wait a moment");
+        progressDialog.setTitle(title);
+        progressDialog.setMessage(getString(R.string.loading));
     }
 
     private void setRegisterInputs(){

@@ -39,4 +39,11 @@
     <string name="description_short">Description doit être au moins 2 charactères de long</string>
     <string name="description_taken">Cette description existe déjà</string>
     <string name="connexion_failed">Impossible d\'accéder à Internet</string>
+    <string name="loging_out">Déconnexion</string>
+    <string name="loading">Attendez un moment</string>
+    <string name="loging_in">Connexion</string>
+    <string name="creating_account">Création du compte</string>
+    <string name="loading_tasks">Chargement des tâches</string>
+    <string name="creating_task">Création d\'une tâche</string>
+    <string name="loading_task">Chargement de la tâche</string>
 </resources>
