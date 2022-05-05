@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         service = RetrofitUtil.get();
-        this.setTitle("Inscription");
+        this.setTitle(R.string.register_title);
         initEventsListeners();
         initProgressDialog();
     }

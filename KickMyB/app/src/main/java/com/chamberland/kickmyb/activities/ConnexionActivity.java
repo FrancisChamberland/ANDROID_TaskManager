@@ -39,7 +39,7 @@ public class ConnexionActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         service = RetrofitUtil.get();
-        this.setTitle("Connexion");
+        this.setTitle(R.string.login_title);
         initEventsListeners();
         initProgressDialog();
     }

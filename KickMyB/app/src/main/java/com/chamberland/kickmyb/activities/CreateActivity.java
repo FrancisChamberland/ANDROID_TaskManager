@@ -40,7 +40,7 @@ public class CreateActivity extends BaseActivity {
         setContentView(view);
         service = RetrofitUtil.get();
         currentActivity = "Create";
-        this.setTitle("Ajouter");
+        this.setTitle(getString(R.string.create_title));
         initEventsListeners();
         initProgressDialog();
     }

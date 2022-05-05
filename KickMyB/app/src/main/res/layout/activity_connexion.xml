@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nom d'utilisateur"
+                android:text="@string/username"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -40,7 +40,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Nom d'utilisateur">
+                android:hint="@string/username_hint">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mot de passe"
+                android:text="@string/password"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -75,7 +75,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Mot de passe">
+                android:hint="@string/password_hint">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -103,19 +103,19 @@
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="5dp"
-                android:text="Se connecter" />
+                android:text="@string/log_in" />
 
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:text="S'inscrire" />
+                android:text="@string/register" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Vous n'avez pas de compte? Inscrivez-vous!" />
+                android:text="@string/login_message" />
 
         </LinearLayout>
 

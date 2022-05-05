@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nom d'utilisateur"
+                android:text="@string/username"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -36,7 +36,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Nom d'utilisateur"
+                android:hint="@string/username_hint"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mot de passe"
+                android:text="@string/password"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -72,7 +72,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Mot de passe"
+                android:hint="@string/password_hint"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirmez votre mot de passe"
+                android:text="@string/confirm_password"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -109,7 +109,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="Mot de passe de confirmation"
+                android:hint="@string/confirm_password_hint"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -136,20 +136,20 @@
                 android:id="@+id/btnRegister"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
-                android:text="S'inscrire" />
+                android:text="@string/register" />
 
             <Button
                 android:id="@+id/btnConnect"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="5dp"
-                android:text="Se connecter" />
+                android:text="@string/log_in" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Vous avez un compte? Connectez-vous!" />
+                android:text="@string/register_message" />
 
         </LinearLayout>
 

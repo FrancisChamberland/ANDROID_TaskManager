@@ -46,7 +46,7 @@ public class HomeActivity extends BaseActivity {
         setContentView(view);
         service = RetrofitUtil.get();
         currentActivity = "Home";
-        this.setTitle("Accueil");
+        this.setTitle(getString(R.string.home_title));
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         createEventsListeners();
         initRecycler();

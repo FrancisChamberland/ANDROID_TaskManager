@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KickMyB</string>
+    <string name="drawer_open">Fermer</string>
+    <string name="drawer_close">Ouvrir</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="username_hint">Nom d\'utilisateur</string>
+    <string name="password_hint">Mot de passe</string>
+    <string name="log_in">Se connecter</string>
+    <string name="register">S\'inscrire</string>
+    <string name="login_message">Vous n\'avez pas de compte? Inscrivez-vous!</string>
+    <string name="confirm_password">Confirmez votre mot de passe</string>
+    <string name="confirm_password_hint">Mot de passe de confirmation</string>
+    <string name="register_message">Vous avez un compte? Connectez-vous!</string>
+    <string name="register_title">Inscription</string>
+    <string name="login_title">Connexion</string>
+    <string name="elapsed_percentage">Pourcentage écoulé</string>
+    <string name="due_date">Date d\'échéance</string>
+    <string name="home_title">Accueil</string>
+    <string name="my_tasks">Mes tâches</string>
+    <string name="add_a_task">Ajouter une tâche</string>
+    <string name="log_out">Déconnexion</string>
+    <string name="create_title">Ajouter</string>
+    <string name="description">Description</string>
+    <string name="add_task">Ajouter</string>
+    <string name="description_hint">Description</string>
+    <string name="progress">Progression</string>
+    <string name="save">Sauvegarder</string>
+</resources>
