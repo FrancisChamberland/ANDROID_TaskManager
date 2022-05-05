@@ -150,7 +150,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void onFailure(Call<String> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.e("SIGNOUT", "Request failed");
-                Snackbar.make(bindingBase.baseFrameLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(bindingBase.baseFrameLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
             }
         });
     }

@@ -169,7 +169,7 @@ public class ConsultActivity extends BaseActivity {
             public void onFailure(Call<String> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.i("UPDATE", "Request failed");
-                Snackbar.make(binding.consultLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.consultLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
             }
         });
     }

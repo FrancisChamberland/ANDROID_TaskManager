@@ -27,4 +27,16 @@
     <string name="description_hint">Description</string>
     <string name="progress">Progression</string>
     <string name="save">Sauvegarder</string>
+    <string name="wrong_password">Mot de passe est incorrecte</string>
+    <string name="username_not_exist">Nom d\'utilisateur n\'existe pas</string>
+    <string name="username_required">Nom d\'utilisateur est obligatoire</string>
+    <string name="password_required">Mot de passe est obligatoire</string>
+    <string name="username_short">Nom d\'utilisateur doit être au moins 2 charactères de long</string>
+    <string name="username_taken">Ce Nom d\'utilisateur existe déjà</string>
+    <string name="password_short">Mot de passe doit être au moins 4 charactères de long</string>
+    <string name="password_not_match">Mot de passe et mot de passe de confirmation ne correspondent pas</string>
+    <string name="description_required">Description est obligatoire</string>
+    <string name="description_short">Description doit être au moins 2 charactères de long</string>
+    <string name="description_taken">Cette description existe déjà</string>
+    <string name="connexion_failed">Impossible d\'accéder à Internet</string>
 </resources>

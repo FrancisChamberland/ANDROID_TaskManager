@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
             removeErrors();
             setRegisterInputs();
             if (!inputPassword.equals(inputConfirmPassword)){
-                binding.inputConfirmPassword.setError("The password and the confirmation password do not match");
+                binding.inputConfirmPassword.setError(getString(R.string.password_not_match));
                 return;
             }
             SignupRequest signupRequest = getSignupResquest(inputUsername, inputPassword);
@@ -88,13 +88,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showError(String error){
         if (error.contains("UsernameTooShort")){
-            binding.inputUsername.setError("The username must be at least 2 characters");
+            binding.inputUsername.setError(getString(R.string.username_short));
         }
         if (error.contains("UsernameAlreadyTaken")){
-            binding.inputUsername.setError("This username is already taken");
+            binding.inputUsername.setError(getString(R.string.username_taken));
         }
         if (error.contains("PasswordTooShort")){
-            binding.inputPassword.setError("The password must be at least 4 characters");
+            binding.inputPassword.setError(getString(R.string.password_short));
         }
     }
 
@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SigninResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.registerLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.registerLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
                 Log.e("SIGNUP", "Request failed");
             }
         });

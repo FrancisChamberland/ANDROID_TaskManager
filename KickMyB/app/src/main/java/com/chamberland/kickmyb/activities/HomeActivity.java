@@ -100,7 +100,7 @@ public class HomeActivity extends BaseActivity {
             public void onFailure(Call<List<Task>> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.i("HOME", "Request failed");
-                Snackbar.make(binding.homeLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.homeLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
             }
         });
     }

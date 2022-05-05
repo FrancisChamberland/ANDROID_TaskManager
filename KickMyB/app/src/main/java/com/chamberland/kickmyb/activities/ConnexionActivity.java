@@ -77,16 +77,10 @@ public class ConnexionActivity extends AppCompatActivity {
 
     private void showError(String error) {
         if (error.contains("BadCredentialsException")) {
-            binding.inputPassword.setError("This password is incorrect");
+            binding.inputPassword.setError(getString(R.string.wrong_password));
         }
         if (error.contains("InternalAuthenticationServiceException")) {
-            binding.inputUsername.setError("This username does not exist");
-        }
-        if (error.contains("UsernameRequired")) {
-            binding.inputUsername.setError("Username is required");
-        }
-        if (error.contains("PasswordRequired")) {
-            binding.inputPassword.setError("Password is required");
+            binding.inputUsername.setError(getString(R.string.username_not_exist));
         }
     }
 
@@ -123,7 +117,7 @@ public class ConnexionActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SigninResponse> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.connextionLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.connextionLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
                 Log.e("SIGNIN", "Request failed");}
         });
     }

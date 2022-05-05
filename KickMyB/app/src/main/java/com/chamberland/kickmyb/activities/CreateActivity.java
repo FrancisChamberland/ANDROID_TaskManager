@@ -84,13 +84,13 @@ public class CreateActivity extends BaseActivity {
 
     private void showError(String error) {
         if (error.contains("Empty")) {
-            binding.inputTaskName.setError("Description is required");
+            binding.inputTaskName.setError(getString(R.string.description_required));
         }
         if (error.contains("TooShort")) {
-            binding.inputTaskName.setError("Description must have at least 2 characters");
+            binding.inputTaskName.setError(getString(R.string.description_short));
         }
         if (error.contains("Existing")) {
-            binding.inputTaskName.setError("This description already exists");
+            binding.inputTaskName.setError(getString(R.string.description_taken));
         }
     }
 
@@ -123,7 +123,7 @@ public class CreateActivity extends BaseActivity {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 progressDialog.dismiss();
-                Snackbar.make(binding.createLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.createLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
                 Log.i("CREATE", "Request failed");
             }
         });
