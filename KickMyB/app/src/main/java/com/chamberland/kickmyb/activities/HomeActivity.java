@@ -57,6 +57,7 @@ public class HomeActivity extends BaseActivity {
         progressDialog = new ProgressDialog(HomeActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     @Override

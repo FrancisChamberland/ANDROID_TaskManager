@@ -64,6 +64,7 @@ public class CreateActivity extends BaseActivity {
         progressDialog = new ProgressDialog(CreateActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     private void setAddTaskInputs(){

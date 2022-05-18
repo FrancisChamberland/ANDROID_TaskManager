@@ -15,7 +15,7 @@
     <string name="register_message">Your already have an account? Log in!</string>
     <string name="register_title">Register</string>
     <string name="login_title">Log in</string>
-    <string name="elapsed_percentage">Elapsed percentage</string>
+    <string name="elapsed_percentage">Percentage of time elapsed</string>
     <string name="due_date">Due date</string>
     <string name="home_title">Home</string>
     <string name="my_tasks">My tasks</string>
@@ -46,4 +46,5 @@
     <string name="loading_tasks">Loading tasks</string>
     <string name="creating_task">Creating task</string>
     <string name="loading_task">Loading task</string>
+    <string name="saving_progress">Saving progress</string>
 </resources>

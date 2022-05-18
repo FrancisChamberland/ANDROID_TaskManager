@@ -57,6 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(BaseActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     private void createEventsListeners() {

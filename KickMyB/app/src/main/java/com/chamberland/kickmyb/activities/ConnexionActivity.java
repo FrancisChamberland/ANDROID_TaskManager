@@ -61,6 +61,7 @@ public class ConnexionActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(ConnexionActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     private void setRegisterInputs(){

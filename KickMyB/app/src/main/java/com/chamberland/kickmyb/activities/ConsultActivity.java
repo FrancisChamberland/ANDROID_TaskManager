@@ -43,6 +43,7 @@ public class ConsultActivity extends BaseActivity {
         progressDialog = new ProgressDialog(ConsultActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     @Override
@@ -134,13 +135,13 @@ public class ConsultActivity extends BaseActivity {
             public void onFailure(Call<TaskDetailResponse> call, Throwable t) {
                 progressDialog.dismiss();
                 Log.i("DETAIL", "Resquest failed");
-                Snackbar.make(binding.consultLayout, "Connexion error", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(binding.consultLayout, R.string.connexion_failed, Snackbar.LENGTH_LONG).show();
             }
         });
     }
 
     private void requestUpdateProgress(){
-        initProgressDialog("Saving progress");
+        initProgressDialog(getString(R.string.saving_progress));
         progressDialog.show();
         service.updateProgress(task.id, taskProgress).enqueue(new Callback<String>() {
             @Override

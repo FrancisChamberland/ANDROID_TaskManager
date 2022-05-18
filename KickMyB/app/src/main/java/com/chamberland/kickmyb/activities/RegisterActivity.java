@@ -65,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(RegisterActivity.this, R.style.LoadingDialogStyle);
         progressDialog.setTitle(title);
         progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.setCancelable(false);
     }
 
     private void setRegisterInputs(){
